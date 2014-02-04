@@ -10,7 +10,7 @@ public class EndingScene : MonoBehaviour {
 	public int FadeOutTime;
 
 	public bool isFadingOut = false;
-	float currentAlpha = 0;
+	float currentAlpha = 0f;
 
 	// Use this for initialization
 	void Start () {
@@ -22,14 +22,13 @@ public class EndingScene : MonoBehaviour {
 		isFadingOut = true;
 	}
 
-	void onGUI(){
+	void OnGUI(){
 
 		if (isFadingOut){
 			currentAlpha += Time.deltaTime / FadeOutTime;  
 			currentAlpha = Mathf.Clamp01(currentAlpha);   
 			
 			GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, currentAlpha);
-			GUI.depth = -1000;
 			GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), FadeOutTexture);
 
 		}

@@ -5,7 +5,6 @@ public class Option : MonoBehaviour {
 
 	public bool isChosen;
 
-	public GameObject ChosenObject;
 	public Color ChosenColor;
 	public Color BasicColor; 
 
@@ -16,12 +15,8 @@ public class Option : MonoBehaviour {
 	public float SceneLoadTimeout;
 
 	void Update(){
-
 		if (GetComponent<TextMesh>()){
 			GetComponent<TextMesh>().color = isChosen ? ChosenColor : BasicColor;
-		}
-		if (ChosenObject){
-			ChosenObject.SetActive(isChosen);
 		}
 	}
 

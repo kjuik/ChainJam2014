@@ -71,8 +71,14 @@ public class ChainJam : MonoBehaviour {
 		DontDestroyOnLoad(this.gameObject);
 		_actions = new Dictionary<int, List<Action>>();
 		GameStart();
+
+		AddFunctionBeforeExit(LoadExitScene,5);
 	}
-	
+
+	private void LoadExitScene(){
+		Application.LoadLevel("EndingScene");
+	}
+
 	public void AddFunctionBeforeExit(Action function, int s)
 	{
 		List<Action> list = new List<Action>();
