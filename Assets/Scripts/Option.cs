@@ -11,6 +11,7 @@ public class Option : MonoBehaviour {
 
 	public List<Animation> AnimationsToPlay;
 	public List<AudioSource> AudiosToPlay;
+	public int PointsToAdd = 0;
 	public string SceneToLoad;
 	public float SceneLoadTimeout;
 
@@ -25,10 +26,13 @@ public class Option : MonoBehaviour {
 	}
 
 	public void Execute(){
+		PointsManager.Add(PointsToAdd);
+
 		foreach(Animation a in AnimationsToPlay)
 			a.Play();
 		foreach(AudioSource a in AudiosToPlay)
 			a.Play();
+
 		Invoke("loadNextScene",SceneLoadTimeout);
 	}
 
