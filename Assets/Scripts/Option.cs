@@ -1,16 +1,18 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Option : MonoBehaviour {
 
 	public bool isChosen;
 
 	public GameObject ChosenObject;
-
 	public Color ChosenColor;
-	public Color BasicColor;
+	public Color BasicColor; 
 
-
+	public List<Animation> AnimationsToPlay;
+	public List<AudioSource> AudiosToPlay;
+	public string SceneToLoad;
+	public float SceneLoadTimeout;
 
 	void Update(){
 
@@ -20,6 +22,18 @@ public class Option : MonoBehaviour {
 		if (ChosenObject){
 			ChosenObject.SetActive(isChosen);
 		}
+	}
+
+	public void Execute(){
+		foreach(Animation a in AnimationsToPlay)
+			a.Play();
+		foreach(AudioSource a in AudiosToPlay)
+			a.Play();
+		Invoke("loadNextScene",SceneLoadTimeout);
+	}
+
+	private void loadNextScene(){
+		Application.LoadLevel(SceneToLoad);
 	}
 }
 
