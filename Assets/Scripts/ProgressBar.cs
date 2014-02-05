@@ -23,6 +23,9 @@ public class ProgressBar : MonoBehaviour
 
 	public GameObject sendMessageTo;
 
+	[HideInInspector]
+	public float normalizedTime = 0f;
+
 	IEnumerator Start()
 	{
 		timerParent = (new GameObject("Timer Parent Object")).transform;
@@ -51,5 +54,9 @@ public class ProgressBar : MonoBehaviour
 
 		float speed = barMaxLength / timeLimit * dir;
 		timerParent.localScale += Vector3.right * speed * Time.deltaTime ;
+
+		normalizedTime = timerParent.localScale.x / barMaxLength;
+		if (dir == -1)
+			normalizedTime = 1f - normalizedTime;
 	}
 }
