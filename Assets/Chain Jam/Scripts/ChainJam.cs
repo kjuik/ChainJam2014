@@ -65,8 +65,7 @@ public class ChainJam : MonoBehaviour {
 	private static float _timePassedLast = -1;
 
 	private Dictionary<int,List<Action>> _actions;
-	
-	
+
 	void Awake () {
 		DontDestroyOnLoad(this.gameObject);
 		_actions = new Dictionary<int, List<Action>>();
