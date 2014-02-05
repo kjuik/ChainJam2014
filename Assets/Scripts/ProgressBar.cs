@@ -21,8 +21,9 @@ public class ProgressBar : MonoBehaviour
 	private Transform timerParent = null;
 	private float dir = 1f;
 
+	public GameObject sendMessageTo;
 
-	void Start()
+	IEnumerator Start()
 	{
 		timerParent = (new GameObject("Timer Parent Object")).transform;
 		timerParent.transform.position = new Vector3(transform.position.x - (float) (int) barPivotPoint * 0.1f,
@@ -36,6 +37,11 @@ public class ProgressBar : MonoBehaviour
 		timerParent.localScale = new Vector3(startLength, barMaxHeight, 1f);
 
 		renderer.material.color = barColor;
+
+		yield return new WaitForSeconds (timeLimit);
+
+		if( sendMessageTo != null )
+			sendMessageTo.SendMessage ("Execute", SendMessageOptions.DontRequireReceiver);
 	}
 
 	void Update()
