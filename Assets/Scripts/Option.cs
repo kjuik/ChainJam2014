@@ -60,9 +60,9 @@ public class Option : MonoBehaviour {
 				float newAlpha = (1f - (1f * ((timeCounter-1) / fadeAwayTimeout)));
 
 				this.GetComponent<TextMesh>().color = new Color(
-					m.color.r,
-					m.color.g,
-					m.color.b,
+					this.GetComponent<TextMesh>().color.r,
+					this.GetComponent<TextMesh>().color.g,
+					this.GetComponent<TextMesh>().color.b,
 					(newAlpha > 0) ? newAlpha : 0f
 				);
 			}
