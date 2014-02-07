@@ -13,7 +13,6 @@ public class Option : MonoBehaviour {
 	public List<AudioSource> AudiosToPlay;
 	//public int PointsToAdd = 0;
 	public string SceneToLoad;
-	private float SceneLoadTimeout = 0.5f;
 
 	void Update(){
 		if (GetComponent<TextMesh>()){
@@ -34,15 +33,19 @@ public class Option : MonoBehaviour {
 				StartCoroutine(FadeAway(m));
 		}
 
-		Invoke("loadNextScene",SceneLoadTimeout);
+		(GameObject.FindObjectOfType<ProgressBar>() as ProgressBar).enabled = false;
+
+		Invoke("loadNextScene",1.5f);
 	}
 
 	private IEnumerator FadeAway(TextMesh m){
 		float timeCounter = 0f;
 
+		float fadeAwayTimeout = 0.5f;
+
 		while (true){
 
-			float alpha = (1f - (1f * (timeCounter / SceneLoadTimeout)));
+			float alpha = (1f - (1f * (timeCounter / fadeAwayTimeout)));
 
 			m.color = new Color(
 				m.color.r,
@@ -50,7 +53,22 @@ public class Option : MonoBehaviour {
 				m.color.b,
 				(alpha > 0) ? alpha : 0f
 				);
+
+
+			if (timeCounter > 1f){
+
+				float newAlpha = (1f - (1f * ((timeCounter-1) / fadeAwayTimeout)));
+
+				this.GetComponent<TextMesh>().color = new Color(
+					m.color.r,
+					m.color.g,
+					m.color.b,
+					(newAlpha > 0) ? newAlpha : 0f
+				);
+			}
+
 			timeCounter += Time.deltaTime;
+
 			yield return 0;
 		}
 	}
