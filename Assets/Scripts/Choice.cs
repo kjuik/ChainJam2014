@@ -6,12 +6,25 @@ public class Choice : MonoBehaviour {
 	public List<Option> Options;
 	public Option CurrentOption;
 
+	public enum Direction {
+		UpDown, LeftRight
+	}
+	public Direction direction;
+
 	void Update(){
-		if (ChainJam.GetButtonJustPressed(ChainJam.BUTTON.UP))
-		    OptionUp();
-		if (ChainJam.GetButtonJustPressed(ChainJam.BUTTON.DOWN))
-		    OptionDown();
-		if (ChainJam.GetButtonJustPressed(ChainJam.BUTTON.A))
+		if (direction == Direction.UpDown){
+			if (ChainJam.GetButtonJustPressed(ChainJam.BUTTON.UP))
+			    OptionUp();
+			if (ChainJam.GetButtonJustPressed(ChainJam.BUTTON.DOWN))
+			    OptionDown();
+		} else {
+			if (ChainJam.GetButtonJustPressed(ChainJam.BUTTON.LEFT))
+				OptionUp();
+			if (ChainJam.GetButtonJustPressed(ChainJam.BUTTON.RIGHT))
+				OptionDown();
+		}
+		if (ChainJam.GetButtonJustPressed(ChainJam.BUTTON.A) ||
+			ChainJam.GetButtonJustPressed(ChainJam.BUTTON.B))
 		    Execute();
 	}
 
