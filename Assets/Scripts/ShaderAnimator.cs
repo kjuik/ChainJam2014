@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AshesBurner : MonoBehaviour 
+public class ShaderAnimator : MonoBehaviour 
 {
+	public string parameter = "_SliceAmount";
+	[Range(0f, 1f)]
+	public float mapFrom = 0f;
+	[Range(0f, 1f)]
+	public float mapTo = 1f;
 	public Renderer[] objectsToBurn;
 
 	private ProgressBar timer;
@@ -21,6 +26,6 @@ public class AshesBurner : MonoBehaviour
 			return;
 
 		foreach (Renderer rend in objectsToBurn)
-			rend.material.SetFloat ("_SliceAmount", timer.normalizedTime);
+			rend.material.SetFloat (parameter, (mapTo - mapFrom) * timer.normalizedTime + mapFrom);
 	}
 }
