@@ -74,7 +74,16 @@ public class Option : MonoBehaviour {
 	}
 
 	private void loadNextScene(){
-		Application.LoadLevel(SceneToLoad);
+		if ("end".Equals(SceneToLoad)){
+			GameObject.FindObjectOfType<ChainJam>().FadeOut();
+			Invoke("ExitGame",2f);
+		} else {
+			Application.LoadLevel(SceneToLoad);
+		}
+	}
+
+	void ExitGame(){
+		ChainJam.GameEnd();
 	}
 }
 
