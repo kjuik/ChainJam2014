@@ -33,7 +33,8 @@ public class Option : MonoBehaviour {
 				StartCoroutine(FadeAway(m));
 		}
 
-		(GameObject.FindObjectOfType<ProgressBar>() as ProgressBar).enabled = false;
+		if (GameObject.FindObjectOfType<ProgressBar>())
+			(GameObject.FindObjectOfType<ProgressBar>() as ProgressBar).enabled = false;
 
 		Invoke("loadNextScene",1.5f);
 	}
