@@ -13,11 +13,11 @@ public class Choice : MonoBehaviour {
 	public Direction direction;
 
 	void Start(){
-		
-		foreach (TextMesh m in GameObject.FindObjectsOfType<TextMesh>()){
+		GameObject.FindObjectOfType<ChainJam>().FadeIn();
+		/*foreach (TextMesh m in GameObject.FindObjectsOfType<TextMesh>()){
 			if (m.gameObject != this.gameObject)
 				StartCoroutine(FadeIn(m));
-		}
+		}*/
 	}
 
 	private IEnumerator FadeIn(TextMesh m){

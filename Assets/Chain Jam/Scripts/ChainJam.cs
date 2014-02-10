@@ -75,13 +75,20 @@ public class ChainJam : MonoBehaviour {
 	}
 
 	public Texture2D FadeOutTexture;
+	public Texture2D FadeInTexture;
 	public int FadeOutTime;
 	
 	public bool isFadingOut = false;
+	public bool isFadingIn = false;
 	float currentAlpha = 0f;
 
 	public void FadeOut(){
 		isFadingOut = true;
+		currentAlpha = 0f;
+	}
+	public void FadeIn(){
+		isFadingIn = true;
+		currentAlpha = 1f;
 	}
 	
 	void OnGUI(){
@@ -92,6 +99,16 @@ public class ChainJam : MonoBehaviour {
 			
 			GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, currentAlpha);
 			GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), FadeOutTexture);	
+		} if (isFadingIn){
+
+			currentAlpha -= Time.deltaTime / FadeOutTime;  
+			currentAlpha = Mathf.Clamp01(currentAlpha);   
+
+			if (currentAlpha <= 0f)
+				isFadingIn = false;
+
+			GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, currentAlpha);
+			GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), FadeInTexture);
 		}
 	}
 
