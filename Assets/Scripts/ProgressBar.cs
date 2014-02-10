@@ -26,7 +26,7 @@ public class ProgressBar : MonoBehaviour
 	[HideInInspector]
 	public float normalizedTime = 0f;
 
-	IEnumerator Start()
+	void Start()
 	{
 		timerParent = (new GameObject("Timer Parent Object")).transform;
 		timerParent.transform.position = new Vector3(transform.position.x - (float) (int) barPivotPoint * 0.1f,
@@ -41,22 +41,35 @@ public class ProgressBar : MonoBehaviour
 
 		renderer.material.color = barColor;
 
-		yield return new WaitForSeconds (timeLimit);
+		Invoke ("StartCountdown",1f);
+	}
 
+	bool counting = false;
+	void StartCountdown(){
+		counting = true;
+		StartCoroutine ("PrepareMessage");
+	}
+
+	IEnumerator PrepareMessage(){
+		yield return new WaitForSeconds (timeLimit);
+		
 		if( sendMessageTo != null )
 			sendMessageTo.SendMessage ("Execute", SendMessageOptions.DontRequireReceiver);
 	}
 
 	void Update()
 	{
-		if( timerParent.localScale.x > barMaxLength || timerParent.localScale.x < 0f )
-			return;
+		if (counting){
 
-		float speed = barMaxLength / timeLimit * dir;
-		timerParent.localScale += Vector3.right * speed * Time.deltaTime ;
+			if( timerParent.localScale.x > barMaxLength || timerParent.localScale.x < 0f )
+				return;
 
-		normalizedTime = timerParent.localScale.x / barMaxLength;
-		if (dir == -1)
-			normalizedTime = 1f - normalizedTime;
+			float speed = barMaxLength / timeLimit * dir;
+			timerParent.localScale += Vector3.right * speed * Time.deltaTime ;
+
+			normalizedTime = timerParent.localScale.x / barMaxLength;
+			if (dir == -1)
+				normalizedTime = 1f - normalizedTime;
+		}
 	}
 }

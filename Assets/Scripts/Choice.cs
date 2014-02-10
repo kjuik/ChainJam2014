@@ -13,7 +13,6 @@ public class Choice : MonoBehaviour {
 	public Direction direction;
 
 	void Start(){
-		(GameObject.FindObjectOfType<ProgressBar>() as ProgressBar).enabled = false;
 		
 		foreach (TextMesh m in GameObject.FindObjectsOfType<TextMesh>()){
 			if (m.gameObject != this.gameObject)
@@ -48,8 +47,6 @@ public class Choice : MonoBehaviour {
 			m.color.b,
 			1f
 			);
-		
-		(GameObject.FindObjectOfType<ProgressBar>() as ProgressBar).enabled = true;
 	}
 
 	void Update(){
