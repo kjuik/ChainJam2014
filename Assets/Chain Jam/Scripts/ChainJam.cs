@@ -71,11 +71,28 @@ public class ChainJam : MonoBehaviour {
 		_actions = new Dictionary<int, List<Action>>();
 		GameStart();
 
-		AddFunctionBeforeExit(LoadExitScene,5);
+		AddFunctionBeforeExit(FadeOut,1);
 	}
 
-	private void LoadExitScene(){
-		Application.LoadLevel("EndingScene");
+	public Texture2D FadeOutTexture;
+	public int FadeOutTime;
+	
+	public bool isFadingOut = false;
+	float currentAlpha = 0f;
+
+	public void FadeOut(){
+		isFadingOut = true;
+	}
+	
+	void OnGUI(){
+		
+		if (isFadingOut){
+			currentAlpha += Time.deltaTime / FadeOutTime;  
+			currentAlpha = Mathf.Clamp01(currentAlpha);   
+			
+			GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, currentAlpha);
+			GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), FadeOutTexture);	
+		}
 	}
 
 	public void AddFunctionBeforeExit(Action function, int s)
