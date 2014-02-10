@@ -85,6 +85,7 @@ public class Choice : MonoBehaviour {
 	}
 	
 	private void Execute(){
+		GameObject.FindObjectOfType<PointsManager>().audio.Play();
 		CurrentOption.Execute();
 	}
 }
